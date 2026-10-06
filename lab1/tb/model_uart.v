@@ -25,6 +25,7 @@ module model_uart(/*AUTOARG*/
    initial
      begin
         TX = 1'b1;
+        buffer = 0;
      end
    
    always @ (negedge RX)
@@ -39,9 +40,12 @@ module model_uart(/*AUTOARG*/
           end
         ->evByte;
 
-         buffer <= {buffer[23:0], rxData};
-         if (rxData == 8'h0D)
-            $display ("%d %s Received: %02x (%s)", $stime, name, buffer, buffer);
+         if (rxData == 8'h0D || rxData == 8'h0A) begin
+             $display ("%d %s Received: %02x (%s)", $stime, name, buffer, buffer);
+             buffer = 0;
+         end
+         else
+            buffer = {buffer[23:0], rxData};
      end
 
    task tskRxData;

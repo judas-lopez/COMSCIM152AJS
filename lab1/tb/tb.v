@@ -15,11 +15,16 @@ module tb;
    wire                 RsTx;                   // From uut_ of basys3.v
    wire [7:0]           led;                    // From uut_ of basys3.v
    // End of automatics
+   
+   reg [7:0] mem [0:1024];
+   reg [7:0] instructionCount;
 
    initial
      begin
         //$shm_open  ("dump", , ,1);
         //$shm_probe (tb, "ASTF");
+        
+        $readmemb("fib.code", mem);
 
         clk = 0;
         btnR = 1;
@@ -27,15 +32,22 @@ module tb;
         #1000 btnR = 0;
         #1500000;
         
-        tskRunPUSH(0,4);
-        tskRunPUSH(0,0);
-        tskRunPUSH(1,3);
-        tskRunMULT(0,1,2);
-        tskRunADD(2,0,3);
-        tskRunSEND(0);
-        tskRunSEND(1);
-        tskRunSEND(2);
-        tskRunSEND(3);
+        instructionCount = mem[0];
+        i = 0;
+        while (i < instructionCount) begin
+            tskRunInst(mem[i + 1]);
+            i = i + 1;
+        end
+                
+//        tskRunPUSH(0,4);
+//        tskRunPUSH(0,0);
+//        tskRunPUSH(1,3);
+//        tskRunMULT(0,1,2);
+//        tskRunADD(2,0,3);
+//        tskRunSEND(0);
+//        tskRunSEND(1);
+//        tskRunSEND(2);
+//        tskRunSEND(3);
         
         #1000;        
         $finish;
