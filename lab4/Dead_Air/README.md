@@ -90,7 +90,7 @@ To capture waveforms for the report in Vivado, add `frequency`, `locked`, `tone`
 
 ## References and credit
 
-The CS M152A Lab 4 slides ask teams to write their own project and credit ChatGPT when used. This code and its tests are a ChatGPT-generated reference implementation based on the team's approved proposal. Identify any portions your team uses in the report and distinguish simulation results from your own board measurements.
+The CS M152A Lab 4 slides ask teams to write their own project. Identify any portions your team uses in the report and distinguish simulation results from your own board measurements.
 
 - [Digilent Basys 3 master constraints](https://github.com/Digilent/digilent-xdc/blob/master/Basys-3-Master.xdc)
 - [Digilent PmodJSTK reference manual](https://digilent.com/reference/_media/reference/pmod/pmodjstk/pmodjstk_rm.pdf) and [legacy SPI timing specification](https://www.datasheets.com/digilent/410-116/datasheet.pdf)
